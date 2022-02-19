@@ -5,7 +5,7 @@
       
     // mysqli_connect("servername","username","password","database_name")
    
-    // Get all the categories from category table
+    // Get all the categories from category tablee
     $sql = "SELECT * FROM `task_type`";
     $all_categories = mysqli_query($con,$sql);
 
