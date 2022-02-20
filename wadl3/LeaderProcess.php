@@ -10,7 +10,7 @@ $dbname = "wadl";
 // Create connection
 $con = new mysqli ($host, $dbusername, $dbpassword, $dbname);
 
-
+// generate username
 $username = mysqli_real_escape_string($con,$_POST['name']);
 $tmp = $username;
 $inc = 1;
@@ -31,6 +31,7 @@ while(!$valid) {
     if($inc>1000) die("sorry"); 
 }
 
+// generate password
 $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 $password = substr( str_shuffle( $chars ), 0, 8 );
 
