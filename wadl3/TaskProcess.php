@@ -15,7 +15,7 @@ $all_categories2 = mysqli_query($con,$sql2);
 @$b=$_POST['date'];  
 @$c=$_POST['language'];
 
-$id = mysqli_real_escape_string($con,$_POST['Category']);
+
 
 $id2 = mysqli_real_escape_string($con,$_POST['Category1']);
 $name = mysqli_real_escape_string($con,$_POST['Product_name']);
@@ -23,13 +23,14 @@ $name = mysqli_real_escape_string($con,$_POST['Product_name']);
 @$d=$_POST['data'];
 @$e=$_POST['tag'];
 
+@$option=$_POST['opt'];
 
 
 
 
 if(@$_POST['submit'])  
 {  
-echo $s="insert into task (type,deadline,language,name,`TaskTypeID`,`LeaderID`,`Dataset`,`Tagset`) values('$a','$b','$c','$name','$id','$id2','$d','$e')";  
+echo $s="insert into task (type,deadline,language,name,`LeaderID`,`Dataset`,`Tagset`,SpecificType) values('$a','$b','$c','$name','$id2','$d','$e','$option')";  
 echo '<script type="text/javascript"> alert("Data Inserted")</script>';
 mysqli_query($con,$s);  
 }

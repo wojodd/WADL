@@ -8,23 +8,39 @@ $dbusername = "root";
 $dbpassword = "";
 $dbname = "wadl";
 // Create connection
-$conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-if (mysqli_connect_error()){
-die('Connect Error ('. mysqli_connect_errno() .') '
-. mysqli_connect_error());
+$con = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+
+$username = mysqli_real_escape_string($con,$_POST['name']);
+$tmp = $username;
+$inc = 1;
+$valid = false;
+
+// lookup if the username is in use
+$qid = mysqli_query($con,"select AnnotatorID from Annotator where username='$username'");
+if(mysqli_num_rows($qid) == 0) $valid = true;
+
+// if it is in use, keep looking up until a valid username is found 
+while(!$valid) {
+    $username = $tmp . $inc; // append number
+    $qid = mysqli_query($con,"select AnnotatorID from Annotator where username='$username'");
+    if(mysqli_num_rows($qid) == 0) $valid = true;
+    $inc++;
+
+    //optional
+    if($inc>1000) die("Too many John Tory's"); 
 }
-else{
-$sql = "INSERT INTO annotator (name,email,LeaderID)
-values ('$name','$email','32')";
-if ($conn->query($sql)){
-echo "New record is inserted sucessfully";
-}
-else{
-echo "Error: ". $sql ."
-". $conn->error;
-}
-$conn->close();
-}
+
+$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+ $password = substr( str_shuffle( $chars ), 0, 8 );
+
+// insert user
+mysqli_query($con,"INSERT INTO annotator (name,email,UserName,Password,LeaderID)
+values ('$name','$email','$username','$password','33')");
+echo "done";
+
+
+
 }
 else{
     echo "name should not be empty";

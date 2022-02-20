@@ -54,7 +54,28 @@
 
 <head>
   <link rel="stylesheet" href="add.css">
-  <script type="text/javascript" src="add-task.js"></script>
+  <script>
+            function random_function()
+            {
+                var a=document.getElementById("input").value;
+                if(a==="NLP")
+                {
+                    var arr=["Word","Sentence","Pragraph","Post"];
+                }
+                else if(a==="Image")
+                {
+                    var arr=["img"];
+                }
+              
+                var string="";
+              
+                for(i=0;i<arr.length;i++)
+                {
+                    string=string+"<option value="+arr[i]+">"+arr[i]+"</option>";
+                }
+                document.getElementById("output").innerHTML=string;
+            }
+        </script>
 
   <title>add task</title>
 </head>
@@ -88,12 +109,11 @@
      
              
       <label>type of task:</label>
-      <select name="TypeTask" id="ddl" >
-
-        <option value=""></option>
-        <option value="NLP">NLP</option>
-        <option value="image">img</option>
-      </select>
+      <select name="TypeTask" id="input" onchange="random_function()">
+            <option>select option</option>
+            <option>NLP</option>
+            <option>Image</option>
+        </select>
 
       <!-- <select id="ddl2">
       </select> -->
@@ -103,26 +123,9 @@
 
 
         <label>Select a specific type</label>
-        <select name="Category">
-            <?php 
-                // use a while loop to fetch data 
-                // from the $all_categories variable 
-                // and individually display as an option
-                while ($category = mysqli_fetch_array(
-                        $all_categories,MYSQLI_ASSOC)):; 
-            ?>
-                <option value="<?php echo $category["TaskTypeID"];
-                    // The value we usually set is the primary key
-                ?>">
-                    <?php echo $category["Type"];
-                        // To show the category name to the user
-                    ?>
-                </option>
-            <?php 
-                endwhile; 
-                // While loop must be terminated
-            ?>
-        </select>
+        
+        <select name="opt" id="output" onchange="random_function1()"> 
+    </select>
         
 
         <label>Select a leader</label>

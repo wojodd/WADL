@@ -38,7 +38,7 @@
 			<tbody>
 				<?php
 					include('conn.php');
-					$query=mysqli_query($conn,"select * from `leader1`");
+					$query=mysqli_query($conn,"select * from `leader1` WHERE DeletedFlag = '0' ");
 					while($row=mysqli_fetch_array($query)){
 						?>
 						<tr>

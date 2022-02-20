@@ -1,4 +1,10 @@
-
+<?php 
+session_start ();
+if(!isset($_SESSION["login"]))
+	header("location:login.php");
+  
+?>
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="Leader1.css">
@@ -18,7 +24,7 @@
   
 <br><br><br><br> <br><br>
  
-<div class="TextLeader"> <h4> Welcome Leader  </h4> </div>
+<div class="TextLeader"> <h4> Welcome Leader <?php echo $_SESSION["user"] ?>  </h4> </div>
 <br>
 <br>
 <br>
