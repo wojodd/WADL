@@ -9,6 +9,9 @@ if(isset($_REQUEST['submit']))
 $user = $_REQUEST['username'];
 $pass = $_REQUEST['password'];
 
+//superglobal variable
+$_SESSION['gett'] = $_POST['username'];
+$_SESSION['gpass'] = $_POST['password'];
 
 
 $res = mysqli_query($con,"select* from admin1 where name='$user'and password='$pass'");
@@ -30,6 +33,16 @@ elseif($result1)
 	
 	$_SESSION["login"]="1";
 	header("location:leader.php");
+
+	// $xx= mysqli_query($con,"SELECT `LeaderID` FROM `leader1` WHERE `Name` = '$user'");
+	// $row = mysqli_fetch_assoc($xx);
+	// $id = $row['LeaderID'];
+	
+	// echo $id;
+	
+	// 	$s=mysqli_query($con,"INSERT INTO annotator (name,email,UserName,Password,LeaderID)
+	// values ('wjj','wj@gmail.com','wwww4','123jjh','$id')");
+	// echo "done";
 }
 
 else	

@@ -1,5 +1,5 @@
 <?php
-  
+  session_start();
     // Connect to database 
     $con = mysqli_connect("localhost","root","","wadl");
       
@@ -9,7 +9,14 @@
     $sql = "SELECT * FROM `annotator`";
     $all_categories = mysqli_query($con,$sql);
 
-    $sql2 = "SELECT * FROM `task`";
+
+    $come = $_SESSION['gett'];
+$come2 = $_SESSION['gpass'];
+$xx= mysqli_query($con,"select LeaderID from leader1 where name='$come'and password='$come2'");
+$row = mysqli_fetch_assoc($xx);
+$le= $row['LeaderID'];
+
+    $sql2 = "SELECT * FROM `task`WHERE LeaderID = $le";
     $all_categories2 = mysqli_query($con,$sql2);
    
     // The following code checks if the submit button is clicked 
@@ -27,13 +34,21 @@
        
         
         
+$come = $_SESSION['gett'];
+$come2 = $_SESSION['gpass'];
+$xx= mysqli_query($con,"select LeaderID from leader1 where name='$come'and password='$come2'");
+$row = mysqli_fetch_assoc($xx);
+$le= $row['LeaderID'];
+
+       echo $le;
+
          
         // Creating an insert query using SQL syntax and
         // storing it in a variable.
 
         $sql_insert = 
-        "INSERT INTO `assignrawdata`( `annotatorID`,`TaskID` )
-            VALUES ('$id' ,'$id2' )";
+        "INSERT INTO `assignrawdata`( `annotatorID`,`TaskID`,LeaderID )
+            VALUES ('$id' ,'$id2','$le' )";
            
           // The following code attempts to execute the SQL query
           // if the query executes with no errors 
@@ -152,7 +167,13 @@ if($link === false){
 }
  
 // Attempt select query execution
-$sql = "SELECT * FROM task";
+$come = $_SESSION['gett'];
+$come2 = $_SESSION['gpass'];
+$xx= mysqli_query($con,"select LeaderID from leader1 where name='$come'and password='$come2'");
+$row = mysqli_fetch_assoc($xx);
+$le= $row['LeaderID'];
+
+$sql = "SELECT * FROM task WHERE LeaderID = $le" ;
 if($result = mysqli_query($link, $sql)){
     if(mysqli_num_rows($result) > 0){
         echo "<table>";
@@ -160,8 +181,10 @@ if($result = mysqli_query($link, $sql)){
                 echo "<th> ID </th>";
                 echo "<th>Name of task</th>";
                 echo "<th>Type of task</th>";
+                echo "<th> Specific Type </th>";
                 echo "<th>Deadline</th>";
                 echo "<th>Language</th>";
+        
                
 
             echo "</tr>";
@@ -170,8 +193,10 @@ if($result = mysqli_query($link, $sql)){
             echo "<td>" . $row['TaskID'] . "</td>";
                 echo "<td>" . $row['Name'] . "</td>";
                 echo "<td>" . $row['Type'] . "</td>";
+                echo "<td>" . $row['SpecificType'] . "</td>";
                 echo "<td>" . $row['Deadline'] . "</td>";
                 echo "<td>" . $row['Language'] . "</td>";
+        
             
             echo "</tr>";
         }

@@ -1,4 +1,6 @@
 <?php
+
+session_start ();
 $name = filter_input(INPUT_POST, 'name');
 $email = filter_input(INPUT_POST, 'email');
 if (!empty($name)){
@@ -9,6 +11,8 @@ $dbpassword = "";
 $dbname = "wadl";
 // Create connection
 $con = new mysqli ($host, $dbusername, $dbpassword, $dbname);
+
+
 
 
 $username = mysqli_real_escape_string($con,$_POST['name']);
@@ -34,9 +38,20 @@ while(!$valid) {
 $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
  $password = substr( str_shuffle( $chars ), 0, 8 );
 
+
+ //passed data from loginSession page
+$come = $_SESSION['gett'];
+$come2 = $_SESSION['gpass'];
+
+$xx= mysqli_query($con,"SELECT `LeaderID` FROM `leader1` WHERE `Name` = '$come' and password='$come2'");
+$row = mysqli_fetch_assoc($xx);
+$id = $row['LeaderID'];
+
+       echo $id;
+
 // insert user
 mysqli_query($con,"INSERT INTO annotator (name,email,UserName,Password,LeaderID)
-values ('$name','$email','$username','$password','33')");
+values ('$name','$email','$username','$password','$id')");
 echo "done";
 
 
